@@ -72,3 +72,16 @@ Copy code BillingCalloutServiceTest
 
 Conclusion
 By following these steps and using the provided code, you will be able to complete the Apex Callouts Superbadge Unit. This includes making secure HTTP callouts, consuming a WSDL to generate a SOAP proxy class, and creating comprehensive test classes to ensure the reliability of your integration.
+
+
+
+Name Credential to Start Challenge 2 
+
+
+<img width="1489" alt="Screenshot 2024-07-15 at 11 32 42 PM" src="https://github.com/user-attachments/assets/b988d7fd-e77f-432f-99eb-21b38369f5c4">
+<img width="1478" alt="Screenshot 2024-07-15 at 11 42 46 PM" src="https://github.com/user-attachments/assets/a65e089b-a5ca-44cf-b844-91a0a397caa1">
+<img width="1447" alt="Screenshot 2024-07-15 at 11 43 12 PM" src="https://github.com/user-attachments/assets/4ab2b739-e3e6-4d34-9fc0-8c2437e1d844">
+<img width="1048" alt="Screenshot 2024-07-15 at 11 43 24 PM" src="https://github.com/user-attachments/assets/5e7c1b38-279f-4fcc-8b79-93e09b757d42"> (User Id and Password you can provide your sandbox one only)
+
+
+
