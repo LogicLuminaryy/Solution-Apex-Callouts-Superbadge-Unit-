@@ -1,0 +1,37 @@
+global class WellnessJourneyRewardsBatch implements Database.Batchable<SObject>, Database.Stateful, Database.AllowsCallouts {
+
+    global Database.QueryLocator start(Database.BatchableContext BC) {
+        String query = 'SELECT OwnerId, Owner.Name, Owner.Username, Owner.Email ' +
+                       'FROM Wellness_Journey__c ' +
+                       'WHERE Activity_Date__c = LAST_N_DAYS:90 ' +
+                       'GROUP BY OwnerId, Owner.Name, Owner.Username, Owner.Email ' +
+                       'HAVING COUNT(Id) >= 12';
+        return Database.getQueryLocator(query);
+    }
+
+    global void execute(Database.BatchableContext BC, List<Wellness_Journey__c> scope) {
+        Map<Id, Map<String, String>> eligibleEmployeesMap = new Map<Id, Map<String, String>>();
+        
+        for (Wellness_Journey__c journey : scope) {
+            if (!eligibleEmployeesMap.containsKey(journey.OwnerId)) {
+                Map<String, String> employeeData = new Map<String, String>();
+                employeeData.put('Id', journey.OwnerId);
+                employeeData.put('Name', journey.Owner.Name);
+                employeeData.put('Username', journey.Owner.Username);
+                employeeData.put('Email', journey.Owner.Email);
+                eligibleEmployeesMap.put(journey.OwnerId, employeeData);
+            }
+        }
+        
+        List<Map<String, String>> eligibleEmployees = eligibleEmployeesMap.values();
+        String jsonBody = JSON.serialize(eligibleEmployees);
+        
+        // Call the method to make the callout
+        Integer statusCode = RewardsCalloutService.submitUsersForRewardCallout(jsonBody);
+        System.debug('HTTP Status Code: ' + statusCode);
+    }
+
+    global void finish(Database.BatchableContext BC) {
+        // Optional: Add logic for final batch completion tasks
+    }
+}
